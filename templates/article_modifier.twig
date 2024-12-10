@@ -1,0 +1,17 @@
+<form class="modif" method="POST" action="index.php?action=update_article&id={{ article.id }}" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{ article.id }}">
+
+    <label for="titre">Titre :</label>
+    <input type="text" name="h1" value="{{ article.h1 }}">
+    <br>
+
+    <label for="chapeau">Chapeau :</label>
+    <input type="text" name="chapo" value="{{ article.chapo }}">
+    <br>
+
+    <label for="auteur">Auteur :</label>
+    <input type="text" name="sign" value="{{ article.sign }}">
+    <br>
+
+    <button class="mod" type="submit">Mettre à jour l'article</button>
+</form>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ article.h1 }}</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="article-container">
+            <aside>
+                <a href="index.php">Retour à l'Accueil</a>
+                {% block aside %}
+                    {% include 'articles.twig' %}
+                {% endblock %}
+            </aside>
+        
+            <section class="affichart">
+                <h1>{{ article.h1 }}</h1>
+                <p class="chapo">{{ article.chapo }}</p>
+                
+                {% include 'template.twig' with { 'blocs': article.bloc } %}
+            
+                <div class="ajoutbloc">
+                    <h2>Ajoutez un bloc :</h2>
+
+                    <form class="ajout" method="POST" action="controleur.php?action=ajouter_bloc&id={{ article.id }}" enctype="multipart/form-data">
+                        <label for="type">Type:</label>
+                        <select name="type">
+                            <option value="h1" {% if bloc.type == 'h1' %}selected{% endif %}>H1</option>
+                            <option value="paragraphe" {% if bloc.type == 'paragraphe' %}selected{% endif %}>Paragraphe</option>
+                            <option value="image" {% if bloc.type == 'image' %}selected{% endif %}>Image</option>
+                            <option value="imtxt" {% if bloc.type == 'imtxt' %}selected{% endif %}>Image + Texte</option>
+                        </select>
+                        <br>
+                    
+                        <input type="hidden" name="article_id" value="{{ article.id }}">
+                    
+                        <label for="texte">Texte:</label>
+                        <input type="text" placeholder="Titre, paragraphe..." name="texte">
+                        <br>
+                
+                        <input type="hidden" name="src">
+                
+                        <label for="style">Style (optionnel):</label>
+                        <input type="text" placeholder="color, width, height..." name="style">
+                        <br>
+                
+                        <label for="src">Téléverser une image :</label>
+                        <input type="file" name="image">
+                        <br>
+                
+                        <label for="alt">Alt :</label>
+                        <input type="text" placeholder="Alt de l'image" name="alt">
+                        <br>
+                    
+                        <button class="buttbloc" type="submit">Ajouter un bloc</button>
+                    </form>
+                </div>
+                
+                <p class="auteur"><span>Auteur de l'article :</span> {{ article.sign }}</p>
+                
+                <div class="act">
+                    <form method="POST" action="index.php?action=delete_article&id={{ article.id }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                        <button class="supp" type="submit">Supprimer l'article</button>
+                    </form>
+                    <form method="GET" action="index.php">
+                        <input type="hidden" name="action" value="modifier_article">
+                        <input type="hidden" name="id" value="{{ article.id }}">
+                        <button class="mod" type="submit">Modifier l'article</button> 
+                    </form>
+                </div>
+            </section>
+        </div>
+
+        <section class="ajoutart">
+            <h2>Créez un nouvel article :</h2>
+        
+            <form class="ajout" method="POST" action="controleur.php?action=ajouter_article" enctype="multipart/form-data">
+        
+            <input type="hidden" name="article_id" value="1">
+        
+            <label for="texte">Titre :</label>
+            <input type="text" placeholder="Votre titre ici" name="h1">
+            <br>
+        
+            <label for="style">Chapô :</label>
+            <input type="text" placeholder="Votre chapô ici" name="chapo">
+            <br>
+        
+            <label for="alt">Auteur :</label>
+            <input type="text" placeholder="Signez ici" name="sign">
+            <br>
+        
+            <button class="buttart" type="submit">Créer un article</button>
+        </form>
+        </section>
+    </main>
+</body>
+</html>

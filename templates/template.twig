@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bloc-container">
+        {% for bloc in blocs %}
+            <div class="bloc" style="{{ bloc.style }}">
+                {% if bloc.type == 'h1' %}
+                    <h1>{{ bloc.texte }}</h1>
+                {% elseif bloc.type == 'paragraphe' %}
+                    <p>{{ bloc.texte }}</p>
+                {% elseif bloc.type == 'image' %}
+                    <img src="{{ bloc.src }}" alt="{{ bloc.alt }}" onerror="this.src='path/to/default/image.jpg';" style="{{ bloc.style }}">
+                {% elseif bloc.type == 'imtxt' %}
+                    <div class="imtxt">
+                        <p>{{ bloc.texte }}</p>
+                        <img src="{{ bloc.src }}" alt="{{ bloc.alt }}" onerror="this.src='path/to/default/image.jpg';" style="{{ bloc.style }}" >
+                    </div>
+                {% endif %}
+
+                <div class="act">
+                    <form method="POST" action="index.php?action=delete_bloc&id={{ bloc.id }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce bloc ?');">
+                        <button class="supp" type="submit">Supprimer le bloc</button>
+                    </form>
+
+                    <form method="GET" action="index.php">
+                        <input type="hidden" name="action" value="modifier_bloc">
+                        <input type="hidden" name="id" value="{{ bloc.id }}">
+                        <button class="mod" type="submit">Modifier le bloc</button> 
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>
+

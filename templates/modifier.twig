@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier le bloc</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form class="modif" method="POST" action="index.php?action=update_bloc&id={{ bloc.id }}" enctype="multipart/form-data">
+        <label for="type">Type:</label>
+        <select name="type">
+            <option value="h1" {% if bloc.type == 'h1' %}selected{% endif %}>H1</option>
+            <option value="paragraphe" {% if bloc.type == 'paragraphe' %}selected{% endif %}>Paragraphe</option>
+            <option value="image" {% if bloc.type == 'image' %}selected{% endif %}>Image</option>
+            <option value="imtxt" {% if bloc.type == 'imtxt' %}selected{% endif %}>Image + Texte</option>
+        </select>
+        <br>
+    
+        <input type="hidden" name="id" value="{{ bloc.id }}">
+    
+        <label for="texte">Texte:</label>
+        <input type="text" name="texte" value="{{ bloc.texte }}">
+        <br>
+    
+        <input type="hidden" placeholder="Votre texte ici" name="src" value="{{ bloc.src }}">
+    
+        <label for="style">Style (optionnel):</label>
+        <input type="text" placeholder="color, width, height..." name="style" value="{{ bloc.style }}">
+        <br>
+    
+        <label for="src">Téléverser une image :</label>
+        <input type="file" name="image">
+        <br>
+    
+        <label for="alt">Alt :</label>
+        <input type="text" name="alt" value="{{ bloc.alt }}">
+        <br>
+    
+        <button class="mod" type="submit">Mettre à jour le bloc</button>
+    </form>
+</body>
+</html>
+

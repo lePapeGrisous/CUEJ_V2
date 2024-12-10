@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 class="h1accueil">Bienvenue sur ce CMS</h1>
+    </header>
+    <main>
+        <aside>
+            {% include 'articles.twig' %}
+        </aside>
+
+        <section class="ajoutart">
+            <h2>Ajoutez un article :</h2>
+        
+            <form class="ajout" method="POST" action="controleur.php?action=ajouter_article" enctype="multipart/form-data">
+        
+                <input type="hidden" name="article_id" value="1">
+        
+                <label for="texte">Titre :</label>
+                <input type="text" placeholder="Votre titre ici" name="h1">
+                <br>
+        
+                <label for="style">Chapô :</label>
+                <input type="text" placeholder="Votre chapô ici" name="chapo">
+                <br>
+        
+                <label for="alt">Auteur :</label>
+                <input type="text" placeholder="Signez ici" name="sign">
+                <br>
+        
+                <button class="buttart" type="submit">Créer un article</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Salomé Frick - Tous droits réservés</p>
+    </footer>
+</body>
+</html>

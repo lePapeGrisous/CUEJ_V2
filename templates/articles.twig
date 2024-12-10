@@ -1,0 +1,9 @@
+<h3>Liste des Articles :</h3>
+<ul>
+    {% for article in articles %}
+        <li>
+            <a href="index.php?action=details_article&id={{ article.id }}">{{ article.h1 }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
